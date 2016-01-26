@@ -3,12 +3,15 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  <h1>Welcome to Dwich!</h1>
+  <form class="new-item">
+      <input type="text" name="name" placeholder="Ajouter un ingédient" />
+      <input type="text" name="initial" placeholder="Son nom court" />
+  </form>
+  {{> itemsAdmin}}
 </body>
 
-<template name="hello">
+<template name="itemsAdmin">
   <button>Click Me</button>
   <p>You've pressed the button {{counter}} times.</p>
 </template>

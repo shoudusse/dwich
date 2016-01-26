@@ -1,23 +1,33 @@
+Items = new Mongo.Collection("items");
 if (Meteor.isClient) {
   // counter starts at 0
   Session.setDefault('counter', 0);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
+  Template.itemsAdmin.helpers({
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+    // This code only runs on the client
+  Meteor.subscribe("tasks");
   });
 }
+
+Meteor.methods({
+  addItem: function (name, initial) {
+    Items.insert({
+      name: name,
+      initial: initial,
+      createdAt: new Date(),
+    });
+  },
+  deleteItem: function (itemId) {
+    var task = Tasks.findOne(taskId);
+    if (task.private && task.owner !== Meteor.userId()) {
+      // If the task is private, make sure only the owner can delete it
+      throw new Meteor.Error("not-authorized");
+    }
+    Tasks.remove(taskId);
+  },
+});
