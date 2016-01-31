@@ -1,0 +1,11 @@
+<template name="admin">
+  <ul class="items">
+    {{#each items}}
+      {{> item}}
+    {{/each}}
+  </ul>
+</template>
+
+<template name="item">
+  <li>{{name}}</li>
+</template>

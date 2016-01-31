@@ -1,18 +1,22 @@
 Items = new Mongo.Collection("items");
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.itemsAdmin.helpers({
-  });
-}
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // This code only runs on the client
-  Meteor.subscribe("tasks");
+  // This code only runs on the server
+  Meteor.publish("items");
+}
+
+if (Meteor.isClient) {
+  // This code only runs on the client
+  Meteor.subscribe("items");
+  Template.admin.helpers({
+    items: function() {
+      //return Items.find();
+      console.log('yop');
+      return
+    }
   });
 }
+
 
 Meteor.methods({
   addItem: function (name, initial) {
