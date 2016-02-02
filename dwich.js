@@ -2,7 +2,9 @@ Items = new Mongo.Collection("items");
 
 if (Meteor.isServer) {
   // This code only runs on the server
-  Meteor.publish("items");
+  Meteor.publish("items", function () {
+    return Items.find();
+  });
 }
 
 if (Meteor.isClient) {
@@ -10,10 +12,24 @@ if (Meteor.isClient) {
   Meteor.subscribe("items");
   Template.admin.helpers({
     items: function() {
-      //return Items.find();
-      console.log('yop');
-      return
+      return Items.find({});
     }
+  });
+
+  Template.admin.events({
+    "submit .new-task": function (event) {
+      // Prevent default browser form submit
+      event.preventDefault();
+
+      // Get value from form element
+      var text = event.target.text.value;
+
+      // Insert a task into the collection
+      Meteor.call("addItem", text);
+
+      // Clear form
+      event.target.text.value = "";
+    },
   });
 }
 
