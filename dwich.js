@@ -17,28 +17,31 @@ if (Meteor.isClient) {
   });
 
   Template.admin.events({
-    "submit .new-task": function (event) {
+    "submit .new-item": function (event) {
+      console.log(event);
       // Prevent default browser form submit
       event.preventDefault();
 
-      // Get value from form element
+      // Get values from form element
       var text = event.target.text.value;
+      var slug = event.target.slug.value;
 
       // Insert a task into the collection
-      Meteor.call("addItem", text);
+      Meteor.call("addItem", text, slug);
 
       // Clear form
       event.target.text.value = "";
+      event.target.slug.value = "";
     },
   });
 }
 
 
 Meteor.methods({
-  addItem: function (name, initial) {
+  addItem: function (name, slug) {
     Items.insert({
       name: name,
-      initial: initial,
+      slug: slug,
       createdAt: new Date(),
     });
   },

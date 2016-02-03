@@ -1,7 +1,9 @@
 <template name="admin">
   <h2>Items</h2>
-  <form class="new-task">
-  	<input type="text" name="text" placeholder="Type to add new items" />
+  <form class="new-item">
+  	<input type="text" name="text" placeholder="Item" />
+  	<input type="text" name="slug" placeholder="Slug" />
+  	<input type="submit" />
   </form>
   <ul class="items">
   {{#each items}}
@@ -11,5 +13,5 @@
 </template>
 
 <template name="item">
-  <li>{{ name }}</li>
+  <li>{{ name }} - {{ slug }}</li>
 </template>
